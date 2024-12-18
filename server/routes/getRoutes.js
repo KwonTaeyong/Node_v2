@@ -4,7 +4,7 @@ const db = require('../db/db'); // DB 모듈
 const mybatisMapper = require('mybatis-mapper');
 const queries = require('../queries/queries');
 
-// 조회
+// 조회 API
 router.get('/get', (req, res) => {
   const sqlQuery = mybatisMapper.getStatement('mybatis.mapper', queries.getAllPosts);
 
