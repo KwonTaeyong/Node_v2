@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/db'); // DB 모듈
 const mybatisMapper = require('mybatis-mapper');
-const queries = require('../queries/queries'); // 올바른 경로 설정
+const queries = require('../queries/queries');
 
 // 조회
 router.get('/get', (req, res) => {
