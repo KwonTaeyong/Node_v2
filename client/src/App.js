@@ -12,6 +12,7 @@ function App() {
   });
   const [viewContent, setViewContent] = useState([]);
   const [editContent, setEditContent] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signupData, setSignupData] = useState({
     id: '',
     password: '',
@@ -146,6 +147,7 @@ function App() {
      .then((res) => {
         alert("로그인 성공!");
         setLoginData({ id: '', password: '' });
+        setIsLoggedIn(true);
       })
       .catch((error) => {
         if(error.response.status === 401) {
@@ -156,6 +158,20 @@ function App() {
         }
       })
   }
+
+  const handleLogout = () => {
+    Axios.post('http://localhost:8000/api/logout')
+    .then((res) => {
+      setIsLoggedIn(false);
+      console.log(res.status)
+      if(res.status === 200) {
+        alert("로그아웃 되었습니다.")
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+  };
 
 
 
@@ -216,6 +232,9 @@ function App() {
         onChange={handleLoginChange}/>
         <button onClick={handleLoginSubmit}>로그인</button>
       </div>
+      {isLoggedIn && (
+        <button onClick={handleLogout}>로그아웃</button>
+      )}
     </div>
   );
 }

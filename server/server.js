@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const mybatisMapper = require('mybatis-mapper');
 mybatisMapper.createMapper(['./mapper/crud-query.xml']);
 mybatisMapper.createMapper(['./mapper/user-query.xml']);
@@ -11,10 +12,22 @@ const getRoutes = require('./routes/getRoutes');
 const deleteRoutes = require('./routes/deleteRoutes');
 const userRoutes = require('./routes/userRoutes');
 
-const port = 8000;
+require('dotenv').config();
+const port = process.env.PORT;
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { 
+        secure: false,
+        maxAge: 60 * 60 * 1000  
+    }  
+}));
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api', postRoutes);

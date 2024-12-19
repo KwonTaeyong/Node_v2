@@ -47,12 +47,25 @@ router.post('/login', (req, res) => {
                 return;
             }
             if(isMathc) {
+                req.session.user = {
+                    id: user.id
+                };
                 res.status(200).send('Login Successful!');
             } else {
                 res.status(401).send('Invalid Password');
             }
         })
+    })
+})
 
+router.post('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if(err) {
+            console.error('Logout error:', err);
+            return res.status(500).send("Logout failed")
+        }
+        res.clearCookie('connect.sid');
+        res.status(200).send('Logout successful!');
     })
 })
 
