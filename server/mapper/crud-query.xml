@@ -15,4 +15,5 @@
     <update id="updatePost" parameterType="map">
         UPDATE board SET title = #{title}, content = #{content} WHERE idx = #{idx}
     </update>
+
 </mapper>

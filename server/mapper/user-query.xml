@@ -1,0 +1,15 @@
+<mapper namespace="users.mapper">
+    <insert id="signPost" parameterType="map">
+        INSERT INTO user (id, password)
+        VALUES (#{id}, #{password})
+    </insert>
+
+    <select id="checkGet" parameterType="map" resultType = "map">
+        SELECT id FROM user WHERE id = #{id}
+    </select> 
+
+    <select id="loginGet" parameterType="map" resultType="map">
+        SELECT * FROM user
+        WHERE id = #{id}
+    </select>
+</mapper>

@@ -11,9 +11,15 @@ function App() {
     content: '',
   });
   const [viewContent, setViewContent] = useState([]);
-
-  // 수정 상태 관리 (게시물별로 상태를 관리)
   const [editContent, setEditContent] = useState({});
+  const [signupData, setSignupData] = useState({
+    id: '',
+    password: '',
+  });
+  const [loginData, setLoginData] = useState({
+    id: '',
+    password: '',
+  })
 
   const handleEditChange = (index, e) => {
     const { name, value } = e.target;
@@ -29,13 +35,9 @@ function App() {
   const handleSubmitEdit = (index) => {
     const updatedPost = editContent[index];
     const postToUpdate = viewContent[index];
-    
+    const idx = postToUpdate.idx; 
+    console.log(idx); 
   
-  
-    const idx = postToUpdate.idx;  // id가 제대로 있는지 확인
-    console.log(idx);  // 확인을 위한 콘솔 로그
-  
-    // 서버에 수정된 내용 전송
     Axios.post(`http://localhost:8000/api/update/${idx}`, updatedPost)
       .then((response) => {
         const updatedContent = [...viewContent];
@@ -103,6 +105,60 @@ function App() {
       });
   }, []);
 
+  const handleSignupChange = (e) => {
+    const {name, value} = e.target;
+    setSignupData({
+      ...signupData,
+      [name]: value,
+    });
+  };
+
+  const handleLoginChange = (e) => {
+    const {name, value} = e.target;
+    setLoginData({
+      ...loginData,
+      [name]: value,
+    });
+  };
+
+  const handleSignupSubmit = () => {
+    console.log("SSS")
+    Axios.post('http://localhost:8000/api/sign', signupData)
+    .then((res) => {
+      alert("회원가입 성공!");
+      setSignupData({ id: '', password: '' });
+    })
+    .catch((error) => {
+      if (error.response) {
+        if (error.response.status === 409) {
+          alert("중복된 ID 입니다.");
+        } else {
+          alert("회원가입 실패");
+        }
+      } else {
+        alert("서버에 연결할 수 없습니다.");
+      }
+    });
+  };
+
+  const handleLoginSubmit = () => {
+    Axios.post('http://localhost:8000/api/login', loginData)
+     .then((res) => {
+        alert("로그인 성공!");
+        setLoginData({ id: '', password: '' });
+      })
+      .catch((error) => {
+        if(error.response.status === 401) {
+          alert("ID 및 PASSWORD를 다시 확인하세요")
+        } else {
+          console.log(error.response.status)
+          alert("로그인 실패");
+        }
+      })
+  }
+
+
+
   return (
     <div className="App">
       <div className="addListBox">
@@ -120,6 +176,7 @@ function App() {
         />
         <button onClick={submit}>등록</button>
       </div>
+
 
       {viewContent.length > 0 ? (
         viewContent.map((item, index) => (
@@ -145,6 +202,20 @@ function App() {
       ) : (
         <p>게시글이 없습니다.</p>
       )}
+      <div className='signupBox'>
+        <input type='text' name='id'placeholder='아이디' value={signupData.id}
+        onChange={handleSignupChange}/>
+        <input type='password' name='password' placeholder='비밀번호' value={signupData.password} onChange={handleSignupChange}/>
+        <button onClick={handleSignupSubmit}>회원가입</button>
+      </div>
+
+      <div className='loginBox'>
+        <input type='text' name='id' placeholder='아이디' value={loginData.id}
+        onChange={handleLoginChange}/>
+        <input type='password' name='password' placeholder='비밀번호' value={loginData.password}
+        onChange={handleLoginChange}/>
+        <button onClick={handleLoginSubmit}>로그인</button>
+      </div>
     </div>
   );
 }

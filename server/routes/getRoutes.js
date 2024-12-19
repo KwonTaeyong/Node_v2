@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/db'); // DB 모듈
+const db = require('../db/db'); 
 const mybatisMapper = require('mybatis-mapper');
 const queries = require('../queries/queries');
 
-// 조회 API
+// 게시글 조회 
 router.get('/get', (req, res) => {
   const sqlQuery = mybatisMapper.getStatement('mybatis.mapper', queries.getAllPosts);
 
@@ -15,7 +15,7 @@ router.get('/get', (req, res) => {
       return;
     }
     console.log('GET Result:', result);
-    res.json(result); // JSON 형식으로 응답
+    res.json(result);
   });
 });
 

@@ -4,7 +4,7 @@ const db = require('../db/db');
 const mybatisMapper = require('mybatis-mapper');
 const queries = require('../queries/queries');
 
-// 등록 API
+// 게시글 등록 
 router.post('/insert', (req, res) => {
     const { title, content, date } = req.body;
     const sqlQuery = mybatisMapper.getStatement('mybatis.mapper', queries.insertPost, {title, content, date})
@@ -20,7 +20,7 @@ router.post('/insert', (req, res) => {
     });
 });
 
-// 수정 API
+// 게시글 수정 
 router.post('/update/:idx', (req, res) => {
     const { idx } = req.params;
     const { title, content } = req.body;
@@ -36,5 +36,6 @@ router.post('/update/:idx', (req, res) => {
         res.send("UPDATE Successfull !")
     })
 })
+
 
 module.exports = router

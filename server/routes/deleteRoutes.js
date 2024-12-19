@@ -4,7 +4,7 @@ const db = require('../db/db');
 const mybatisMapper = require('mybatis-mapper');
 const queries = require('../queries/queries');
 
-// 삭제 API
+// 게시글 삭제 
 router.delete('/delete/:idx', (req, res) => {
     const idx = req.params.idx;
     const sqlQuery  = mybatisMapper.getStatement('mybatis.mapper', queries.deletePost, {idx});
