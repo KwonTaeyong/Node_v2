@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const mybatisMapper = require('mybatis-mapper');
+
 mybatisMapper.createMapper(['./mapper/crud-query.xml']);
 mybatisMapper.createMapper(['./mapper/user-query.xml']);
 
@@ -11,9 +12,9 @@ const postRoutes = require('./routes/postRoutes');
 const getRoutes = require('./routes/getRoutes');
 const deleteRoutes = require('./routes/deleteRoutes');
 const userRoutes = require('./routes/userRoutes');
+const port = process.env.PORT;
 
 require('dotenv').config();
-const port = process.env.PORT;
 
 app.use(session({
     secret: process.env.SESSION_SECRET,

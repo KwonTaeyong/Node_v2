@@ -1,0 +1,16 @@
+{
+  "workspaces": ["client", "server"],
+  "scripts": {
+    "start:client": "npm start --prefix client",
+    "start:server": "npm start --prefix server",
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm run build --prefix server",
+    "dev": "concurrently \"npm run start:client\" \"npm run start:server\""
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "concurrently": "^7.0.0"
+  }
+}

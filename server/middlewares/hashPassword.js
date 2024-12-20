@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 
 const hashPassword = (req, res, next) => {
     const { password } = req.body;
-    console.log(req.body+"AA")
     bcrypt.hash(password, 10, (err, hashedPassword) => {
         if(err) {
             console.error('Error hashing password:', err);

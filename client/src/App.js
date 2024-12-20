@@ -163,7 +163,6 @@ function App() {
     Axios.post('http://localhost:8000/api/logout')
     .then((res) => {
       setIsLoggedIn(false);
-      console.log(res.status)
       if(res.status === 200) {
         alert("로그아웃 되었습니다.")
       }
