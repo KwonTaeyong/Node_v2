@@ -123,7 +123,6 @@ function App() {
   };
 
   const handleSignupSubmit = () => {
-    console.log("SSS")
     Axios.post('http://localhost:8000/api/sign', signupData)
     .then((res) => {
       alert("회원가입 성공!");
