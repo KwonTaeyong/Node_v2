@@ -1,17 +1,15 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import mybatisMapper from 'mybatis-mapper';
 import dotenv from 'dotenv';
 
-// 라우트 타입 설정
 import postRoutes from './routes/postRoutes';
 import getRoutes from './routes/getRoutes';
 import deleteRoutes from './routes/deleteRoutes';
 import userRoutes from './routes/userRoutes';
 
-// 환경 변수 설정
 dotenv.config();
 
 const app: Application = express();

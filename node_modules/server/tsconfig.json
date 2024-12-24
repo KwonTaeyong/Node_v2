@@ -5,10 +5,10 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "baseUrl": ".",       
-        "rootDir": "./src",   
+        "rootDir": "server",   
         "outDir": "./dist",   
         "typeRoots": ["./node_modules/@types", "./types"]  
     },
-    "include": ["src/**/*", "types/**/*", "types"],  
+    "include": ["server/**/*"],  
     "exclude": ["node_modules", "dist"]  
 }
